@@ -12,13 +12,19 @@
 
 // Helper: print an integer that is scaled by 100 as "whole.frac"
 // e.g. print_scaled(2350) prints "23.50"
+// xv6's printf does not support %02d, so we pad manually.
 static void
 print_scaled(int val)
 {
   int neg = 0;
+  int frac;
   if(val < 0){ neg = 1; val = -val; }
+  frac = val % 100;
   if(neg) printf("-");
-  printf("%d.%02d", val / 100, val % 100);
+  if(frac < 10)
+    printf("%d.0%d", val / 100, frac);
+  else
+    printf("%d.%d", val / 100, frac);
 }
 
 int
