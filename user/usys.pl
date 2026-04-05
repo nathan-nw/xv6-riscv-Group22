@@ -44,3 +44,4 @@ entry("pause");
 entry("uptime");
 entry("logevent");
 entry("getlogs");
+entry("getsensordata");

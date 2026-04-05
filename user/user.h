@@ -2,6 +2,7 @@
 
 struct stat;
 struct elog_entry;
+struct sensordata;
 
 // system calls
 int fork(void);
@@ -27,6 +28,7 @@ int pause(int);
 int uptime(void);
 int logevent(int event_type, int sensor_id, int value);
 int getlogs(struct elog_entry *dst, int max);
+int getsensordata(struct sensordata*);
 
 // ulib.c
 int stat(const char*, struct stat*);
