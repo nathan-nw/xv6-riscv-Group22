@@ -7,6 +7,7 @@
 #include "defs.h"
 
 struct cpu cpus[NCPU];
+struct semaphore global_sem;
 
 struct proc proc[NPROC];
 
