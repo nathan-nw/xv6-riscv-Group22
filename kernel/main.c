@@ -3,6 +3,7 @@
 #include "memlayout.h"
 #include "riscv.h"
 #include "defs.h"
+extern struct semaphore global_sem;
 
 volatile static int started = 0;
 
@@ -30,6 +31,7 @@ main()
     virtio_disk_init(); // emulated hard disk
     userinit();      // first user process
     __sync_synchronize();
+    sem_init(&global_sem, 1);
     started = 1;
   } else {
     while(started == 0)
