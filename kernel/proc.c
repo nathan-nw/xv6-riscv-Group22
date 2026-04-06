@@ -421,6 +421,27 @@ kwait(uint64 addr)
 //  - swtch to start running that process.
 //  - eventually that process transfers control
 //    via swtch back to the scheduler.
+void sem_init(struct semaphore *s, int value) {
+  initlock(&s->lock, "semaphore");
+  s->value = value;
+}
+
+void sem_wait(struct semaphore *s) {
+  acquire(&s->lock);
+  while (s->value <= 0) {
+    release(&s->lock);
+    yield();
+    acquire(&s->lock);
+  }
+  s->value--;
+  release(&s->lock);
+}
+
+void sem_signal(struct semaphore *s) {
+  acquire(&s->lock);
+  s->value++;
+  release(&s->lock);
+}
 void
 scheduler(void)
 {
