@@ -7,10 +7,12 @@
 #include "defs.h"
 
 struct cpu cpus[NCPU];
+struct semaphore global_sem;
 
 struct proc proc[NPROC];
 
 struct proc *initproc;
+struct semaphore sem;
 
 int nextpid = 1;
 struct spinlock pid_lock;
@@ -421,6 +423,26 @@ kwait(uint64 addr)
 //  - swtch to start running that process.
 //  - eventually that process transfers control
 //    via swtch back to the scheduler.
+void sem_init(int value) {
+  sem.value = value;
+  initlock(&sem.lock, "sem");
+}
+
+void sem_wait(void) {
+  acquire(&sem.lock);
+  while (sem.value <= 0) {
+    sleep(&sem, &sem.lock);
+  }
+  sem.value--;
+  release(&sem.lock);
+}
+
+void sem_signal(void) {
+  acquire(&sem.lock);
+  sem.value++;
+  wakeup(&sem);
+  release(&sem.lock);
+}
 void
 scheduler(void)
 {
