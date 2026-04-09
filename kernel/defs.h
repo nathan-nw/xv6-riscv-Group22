@@ -8,6 +8,11 @@ struct spinlock;
 struct sleeplock;
 struct stat;
 struct superblock;
+struct semaphore;
+
+void sem_init(int value);
+void sem_wait(void);
+void sem_signal(void);
 
 // bio.c
 void            binit(void);
@@ -104,6 +109,7 @@ void            procdump(void);
 
 // swtch.S
 void            swtch(struct context*, struct context*);
+
 
 // spinlock.c
 void            acquire(struct spinlock*);
