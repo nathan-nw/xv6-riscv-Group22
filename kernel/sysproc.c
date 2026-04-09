@@ -63,6 +63,24 @@ sys_sbrk(void)
   }
   return addr;
 }
+extern struct semaphore global_sem;
+
+uint64 sys_sem_init(void) {
+  int value;
+  argint(0, &value);
+  sem_init(value);
+  return 0;
+}
+
+uint64 sys_sem_wait(void) {
+  sem_wait();
+  return 0;
+}
+
+uint64 sys_sem_signal(void) {
+  sem_signal();
+  return 0;
+}
 
 uint64
 sys_pause(void)
