@@ -25,3 +25,14 @@ int main() {
 
   exit(0);
 }
+
+/*I implemented a semaphore in xv6 to control 
+access to a critical section. I added new system 
+calls for sem_init, sem_wait, and sem_signal, 
+and connected them through syscall.h, syscall.c, 
+sysproc.c, and user space. Then I wrote a user 
+program (semtest) that forks multiple processes. 
+Each process tries to enter a critical section, 
+but the semaphore ensures only one enters at a time. 
+This demonstrates proper synchronization and 
+prevents race conditions.*/
