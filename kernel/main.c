@@ -5,6 +5,7 @@
 #include "defs.h"
 #include "elog.h"
 #include "alert.h"
+extern struct semaphore global_sem;
 
 volatile static int started = 0;
 
@@ -34,6 +35,7 @@ main()
     alertinit();     // initialize alert system
     userinit();      // first user process
     __sync_synchronize();
+    sem_init(&global_sem, 1);
     started = 1;
   } else {
     while(started == 0)

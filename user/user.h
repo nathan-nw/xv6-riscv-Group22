@@ -30,6 +30,8 @@ int logevent(int event_type, int sensor_id, int value);
 int getlogs(struct elog_entry *dst, int max);
 int setalert(int sensor_id, int min_val, int max_val);
 int getalerts(struct alert_entry *dst, int max);
+int semwait(void);
+int semsignal(void);
 
 // ulib.c
 int stat(const char*, struct stat*);

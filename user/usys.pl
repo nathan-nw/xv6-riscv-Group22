@@ -46,3 +46,5 @@ entry("logevent");
 entry("getlogs");
 entry("setalert");
 entry("getalerts");
+entry("semwait");
+entry("semsignal");

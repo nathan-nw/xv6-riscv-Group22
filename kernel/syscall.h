@@ -24,3 +24,5 @@
 #define SYS_getlogs  23
 #define SYS_setalert 24
 #define SYS_getalerts 25
+#define SYS_semwait   26
+#define SYS_semsignal 27

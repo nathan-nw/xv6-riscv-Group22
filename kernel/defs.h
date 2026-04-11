@@ -104,6 +104,10 @@ void            procdump(void);
 
 // swtch.S
 void            swtch(struct context*, struct context*);
+// semaphore
+void sem_init(struct semaphore *s, int value);
+void sem_wait(struct semaphore *s);
+void sem_signal(struct semaphore *s);
 
 // spinlock.c
 void            acquire(struct spinlock*);
