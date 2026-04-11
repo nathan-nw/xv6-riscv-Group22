@@ -26,3 +26,4 @@
 #define SYS_getalerts 25
 #define SYS_semwait   26
 #define SYS_semsignal 27
+#define SYS_getsensordata 28

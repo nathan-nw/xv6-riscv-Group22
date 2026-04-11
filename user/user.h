@@ -3,6 +3,7 @@
 struct stat;
 struct elog_entry;
 struct alert_entry;
+#include "kernel/sensordata.h"
 
 // system calls
 int fork(void);
@@ -32,6 +33,7 @@ int setalert(int sensor_id, int min_val, int max_val);
 int getalerts(struct alert_entry *dst, int max);
 int semwait(void);
 int semsignal(void);
+int getsensordata(struct sensordata *sd);
 
 // ulib.c
 int stat(const char*, struct stat*);

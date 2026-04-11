@@ -48,3 +48,4 @@ entry("setalert");
 entry("getalerts");
 entry("semwait");
 entry("semsignal");
+entry("getsensordata");

@@ -5,11 +5,12 @@
 #include "defs.h"
 #include "elog.h"
 #include "alert.h"
+#include "sensordata.h"
 extern struct semaphore global_sem;
 
-volatile static int started = 0;
+struct sensordata latest_sensordata;
 
-// start() jumps here in supervisor mode on all CPUs.
+volatile static int started = 0;
 void
 main()
 {
@@ -33,6 +34,11 @@ main()
     virtio_disk_init(); // emulated hard disk
     eloginit();      // initialize logging system
     alertinit();     // initialize alert system
+    latest_sensordata.temperature = 0;
+    latest_sensordata.humidity = 0;
+    latest_sensordata.airquality = 0;
+    latest_sensordata.energyusage = 0;
+    latest_sensordata.waterusage = 0;
     userinit();      // first user process
     __sync_synchronize();
     sem_init(&global_sem, 1);

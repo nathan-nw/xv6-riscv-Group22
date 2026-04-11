@@ -107,6 +107,7 @@ extern uint64 sys_setalert(void);
 extern uint64 sys_getalerts(void);
 extern uint64 sys_semwait(void);
 extern uint64 sys_semsignal(void);
+extern uint64 sys_getsensordata(void);
 
 // An array mapping syscall numbers from syscall.h
 // to the function that handles the system call.
@@ -138,6 +139,7 @@ static uint64 (*syscalls[])(void) = {
 [SYS_getalerts] sys_getalerts,
 [SYS_semwait]    sys_semwait,
 [SYS_semsignal]  sys_semsignal,
+[SYS_getsensordata] sys_getsensordata,
 };
 
 void

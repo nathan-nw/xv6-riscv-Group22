@@ -4,7 +4,7 @@
 
 void critical(int id) {
   printf("Process %d ENTER\n", id);
-  sleep(50);
+  pause(50);
   printf("Process %d EXIT\n", id);
 }
 

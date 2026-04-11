@@ -1,3 +1,9 @@
+#ifndef PROC_H
+#define PROC_H
+
+#include "types.h"
+#include "spinlock.h"
+
 // Saved registers for kernel context switches.
 struct context {
   uint64 ra;
@@ -27,6 +33,11 @@ struct cpu {
 };
 
 extern struct cpu cpus[NCPU];
+
+struct semaphore {
+  int value;
+  struct spinlock lock;
+};
 
 // per-process data for the trap handling code in trampoline.S.
 // sits in a page by itself just under the trampoline page in the
@@ -104,8 +115,6 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
-  struct semaphore {
-  int value;
-  struct spinlock lock;
 };
-};
+
+#endif // PROC_H

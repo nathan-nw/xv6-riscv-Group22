@@ -17,6 +17,9 @@
 #include "fcntl.h"
 #include "elog.h"
 #include "alert.h"
+#include "sensordata.h"
+
+extern struct sensordata latest_sensordata;
 
 // Fetch the nth word-sized system call argument as a file descriptor
 // and return both the descriptor and the corresponding struct file.
@@ -587,4 +590,18 @@ sys_getalerts(void)
     return -1;
 
   return n;
+}
+
+uint64
+sys_getsensordata(void)
+{
+  uint64 addr;
+
+  argaddr(0, &addr);
+
+  if(copyout(myproc()->pagetable, addr, (char *)&latest_sensordata,
+             sizeof(struct sensordata)) < 0)
+    return -1;
+
+  return 0;
 }

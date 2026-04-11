@@ -4,6 +4,11 @@
 #include "spinlock.h"
 #include "defs.h"
 #include "elog.h"
+#include "sensordata.h"
+
+extern uint ticks;
+extern struct spinlock tickslock;
+extern struct sensordata latest_sensordata;
 
 extern uint ticks;
 extern struct spinlock tickslock;
@@ -43,6 +48,27 @@ elogadd(int event_type, int sensor_id, int value)
   e->event_type = event_type;
   e->sensor_id = sensor_id;
   e->value = value;
+
+  // Update latest sensor data if this is a sensor update
+  if(event_type == EVENT_SENSOR_UPDATE){
+    switch(sensor_id){
+    case SENSOR_TEMPERATURE:
+      latest_sensordata.temperature = value;
+      break;
+    case SENSOR_AIR_QUALITY:
+      latest_sensordata.airquality = value;
+      break;
+    case SENSOR_HUMIDITY:
+      latest_sensordata.humidity = value;
+      break;
+    case SENSOR_ENERGY_USAGE:
+      latest_sensordata.energyusage = value;
+      break;
+    case SENSOR_WATER_USAGE:
+      latest_sensordata.waterusage = value;
+      break;
+    }
+  }
 
   elogsys.next_index = (elogsys.next_index + 1) % ELOG_SIZE;
   if(elogsys.count < ELOG_SIZE)
